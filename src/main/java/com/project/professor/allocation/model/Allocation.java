@@ -7,33 +7,60 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity // Entity sáo classes que mapeiam as tabelas no seu código. Essa classe é uma
-		// entidade, ela representa uma tabela
-@Table(name = "allocation") // identifica a tabela que ta sendo mapeada. O nome da tabela é allocation no db
+/*
+ * Entity sáo classes que mapeiam as tabelas no seu código. 
+ * Essa classe é uma entidade, ela representa uma tabela
+ * */
+@Entity
+
+/*
+ * Identifica a tabela que ta sendo mapeada. O nome da tabela é allocation no db
+ */
+@Table(name = "allocation")
 public class Allocation {
 
-	@Id // representa a coluna de Id da sua tabela
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // Vai ser uma ID de autoincremento
+	// Representa a coluna de Id da sua tabela
+	@Id
+
+	// Vai ser uma ID de autoincremento
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Enumerated(EnumType.STRING) // Essa anotação informa o formato que você quer que seja armazenado na coluna,
-									// nesse caso quer que seja armazenado em string os valores dessa coluna
-	@Column(name = "day", nullable = false) // @Column vai descrever a coluna. O nome da coluna vai ser day e ela não
-											// vai ser nula
+	/*
+	 * Essa anotação informa o formato que você quer que seja armazenado na coluna.
+	 * Nesse caso quer que seja armazenado em string os valores dessa coluna.
+	 */
+	@Enumerated(EnumType.STRING)
+
+	/*
+	 * @Column vai descrever a coluna. O nome da coluna vai ser day e ela não vai
+	 * ser nula.
+	 */
+	@Column(name = "day", nullable = false)
 	private DayOfWeek dayOfWeek;
 
-	@Column(name = "end", nullable = false, columnDefinition = "Time") // não faz sentido essa coluna poder assumir o
-																		// valor nulo. ColumnDefinition define o tipo
-																		// macro daquela coluna
+	/*
+	 * Não faz sentido essa coluna poder assumir o valor nulo. ColumnDefinition
+	 * define o tipo macro daquela coluna
+	 */
+	@Column(name = "end", nullable = false, columnDefinition = "Time")
 	private Time endHour;
 
 	@Column(name = "start", nullable = false, columnDefinition = "Time")
 	private Time startHour;
+	
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	private Professor professor;
+	
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	private Course course;
 
 	public Allocation() {
 		super();
@@ -59,8 +86,24 @@ public class Allocation {
 		return dayOfWeek;
 	}
 
-	public void setDay(DayOfWeek dayOfWeek) {
+	public void setDayOfWeek(DayOfWeek dayOfWeek) {
 		this.dayOfWeek = dayOfWeek;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 	public Time getEndHour() {
