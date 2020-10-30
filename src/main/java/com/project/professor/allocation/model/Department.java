@@ -25,9 +25,9 @@ public class Department {
 
 	/*
 	 * Um departamento para varios professores, se são vários professores, eu
-	 * preciso de uma LISTA de professores.
-	 * LAZY significa que ele nao vai carregar toda a lista de professores quando chamar um departamento
-	 * MappedBy só precisa especificar quando é OneToMany
+	 * preciso de uma LISTA de professores. LAZY significa que ele nao vai carregar
+	 * toda a lista de professores quando chamar um departamento MappedBy só precisa
+	 * especificar quando é OneToMany
 	 */
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Professor> professors;
@@ -40,6 +40,16 @@ public class Department {
 		super();
 		this.id = id;
 		this.name = name;
+	}
+
+	/*
+	 * Bota o toString sem professor porque se não vai entrar num loop infinito,
+	 * porque o departamento busca a lista de professor mas cada professor tambem
+	 * vai puxar um departamento
+	 */
+	@Override
+	public String toString() {
+		return "Department [id=" + id + ", name=" + name + "]";
 	}
 
 	public List<Professor> getProfessors() {

@@ -39,6 +39,11 @@ public class Professor {
 	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Allocation> allocations;
 
+	@Override
+	public String toString() {
+		return "Professor [id=" + id + ", cpf=" + cpf + ", name=" + name + ", department=" + department + "]";
+	}
+
 	public Department getDepartment() {
 		return department;
 	}
