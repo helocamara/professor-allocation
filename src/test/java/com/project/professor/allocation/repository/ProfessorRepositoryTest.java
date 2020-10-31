@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 
+import com.project.professor.allocation.model.Department;
 import com.project.professor.allocation.model.Professor;
 
 @DataJpaTest
@@ -36,5 +37,42 @@ public class ProfessorRepositoryTest {
 		Optional<Professor> optionalProfessor = professorRepository.findById(id);
 		Professor professor = optionalProfessor.orElse(null);
 		System.out.println(professor);
+	}
+	
+	
+	@Test
+	public void create() {
+		Department department = new Department();
+		department.setId(5L);
+		
+		Professor professor = new Professor();
+		professor.setId(null);
+		professor.setName("Professor 3");
+		professor.setCpf("333.333.333-33");
+		professor.setDepartment(department);
+		professor = professorRepository.save(professor);
+		System.out.println(professor);
+	}
+	
+	@Test
+	public void update() {
+		Long id = 3L;
+		Optional<Professor> optionalProfessor = professorRepository.findById(id);
+		Professor professor = optionalProfessor.orElse(null);
+		professor.setName("Professor 1");
+		professorRepository.save(professor);
+		System.out.println(professor);
+	}
+	
+	@Test
+	public void deleteAll() {
+		professorRepository.deleteAll();
+	}
+	
+	@Test
+	public void deleteById() {
+		Long id = 3L;
+		professorRepository.deleteById(id);
+				
 	}
 }

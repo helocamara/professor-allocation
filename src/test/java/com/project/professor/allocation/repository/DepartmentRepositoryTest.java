@@ -60,10 +60,10 @@ public class DepartmentRepositoryTest {
 		 * coloque ai, ele vai ignorar e continuar na ordem do auto_increment
 		 */
 		department.setId(null);
-		department.setName("Departamento de Teste");
+		department.setName("Departamento de Filosofia");
 
-		Department department2 = departmentRepository.save(department);
-		System.out.println(department2);
+		department = departmentRepository.save(department);
+		System.out.println(department);
 	}
 	
 	/*
@@ -78,11 +78,12 @@ public class DepartmentRepositoryTest {
 		 * O id colocou null pois ele é auto_increment, entao nao importa qual valor eu
 		 * coloque ai, ele vai ignorar e continuar na ordem do auto_increment
 		 */
-		department.setId(1L);
-		department.setName("Departamento de Teste2");
+		department = departmentRepository.findById(2L).orElse(null);
+		department.setId(2L);
+		department.setName("Departamento de Filosofia");
 
-		Department department2 = departmentRepository.save(department);
-		System.out.println(department2);
+		department = departmentRepository.save(department);
+		System.out.println(department);
 	}
 
 	@Test

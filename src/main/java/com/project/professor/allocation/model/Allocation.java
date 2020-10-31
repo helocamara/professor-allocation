@@ -94,6 +94,12 @@ public class Allocation {
 		return professor;
 	}
 
+	@Override
+	public String toString() {
+		return "Allocation [id=" + id + ", dayOfWeek=" + dayOfWeek + ", endHour=" + endHour + ", startHour=" + startHour
+				+ ", professor=" + professor + ", course=" + course + "]";
+	}
+
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
